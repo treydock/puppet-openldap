@@ -31,8 +31,8 @@ class openldap::client(
   $pam_password                                 = undef,
 
   # TLS Options
-  Optional[Stdlib::Absolutepath] $tls_cacert    = undef,
-  Optional[Stdlib::Absolutepath] $tls_cacertdir = undef,
+  Optional[String] $tls_cacert    = undef,
+  Optional[String] $tls_cacertdir = undef,
   $tls_checkpeer                                = undef,
   $tls_reqcert                                  = undef,
 

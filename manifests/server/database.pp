@@ -1,7 +1,7 @@
 # See README.md for details.
 define openldap::server::database(
   $ensure                                   = present,
-  Optional[Stdlib::Absolutepath] $directory = undef,
+  Optional[String] $directory = undef,
   $suffix                                   = $title,
   $relay                                    = undef,
   $backend                                  = undef,
