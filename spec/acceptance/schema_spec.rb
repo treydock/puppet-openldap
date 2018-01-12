@@ -59,16 +59,14 @@ describe 'openldap::server::schema' do
   end
 
   context 'remove custom schema' do
-    it 'deletes custom schema' do
-      pp = <<-EOS
-      class { 'openldap::server': }
-      openldap::server::schema { 'puppet':
-        ensure => absent,
-      }
-      EOS
-
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+    it 'cleans up custom schema' do
+      on hosts, 'service slapd stop'
+      if fact(:osfamily) == 'Debian'
+        on hosts, 'rm -f /etc/ldap/slapd.d/cn=config/cn=schema/*puppet.ldif'
+      else
+        on hosts, 'rm -f /etc/openldap/slapd.d/cn=config/cn=schema/*puppet.ldif'
+      end
+      on hosts, 'service slapd start'
     end
   end
 
